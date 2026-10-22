@@ -1,0 +1,49 @@
+#container{
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+}
+.pierwszy{
+    width: 500px;
+    display: grid;
+}
+.pierwszy > div{
+    grid-area: 1/1;
+}
+#blok1{
+    background-color: yellow;
+    width: 500px;
+    height: 40px;
+}
+#blok2{
+    background-color: red;
+    width: 500px;
+    height: 40px;
+    display: none;
+}
+
+#przelacznik-blokow {
+    display: none;
+}
+#przelacznik-blokow:checked ~ #container #blok1 {
+    display: none;
+}
+#przelacznik-blokow:checked ~ #container #blok2 {
+    display: block;
+}
+#przycisk1 {
+    text-align: center;
+    margin-top: 10px;
+}
+.moj-przycisk {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #efefef;
+    border: 1px solid #767676;
+    border-radius: 3px;
+    cursor: pointer;
+    user-select: none;
+}
+.moj-przycisk:hover {
+    background-color: #e5e5e5;
+}
