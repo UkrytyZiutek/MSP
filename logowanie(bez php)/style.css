@@ -1,0 +1,17 @@
+#container{
+    background-color: grey;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+}
+/* NIE MUSISZ TEGO DODAWAĆ */
+#tekst_poboczny{
+    background-color: gold;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    text-align: center;
+}
+#otwieranie_dodatkowe{
+    text-align: center;
+}
