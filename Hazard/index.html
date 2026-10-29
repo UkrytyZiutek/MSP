@@ -10,7 +10,7 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>DropZone - Multi-Animation Update</title>
+<title>DropZone - Multi-Open Update</title>
 
 <style>
 
@@ -3696,7 +3696,7 @@ body {
             <h2 id="multiModalTitle">Ile skrzynek otworzyć?</h2>
             <button class="close" onclick="closeMultiModal()">✕</button>
         </div>
-        <p style="color: #8490a8; font-size: 13px; margin: 10px 0;">Wybierz liczbę skrzynek do otwarcia z animacją:</p>
+        <p style="color: #8490a8; font-size: 13px; margin: 10px 0;">Wybierz liczbę skrzynek do otwarcia:</p>
         
         <div class="multiOptions">
             <button class="multiBtn" onclick="confirmOpenCases(1)">
@@ -3729,8 +3729,8 @@ body {
 
 
 <!-- =====================================================
-     CASE MODAL (RULETKA ANIMACJI)
-========================================== -->
+     CASE MODAL (ROULETTE DLA 1 SZTUKI)
+===================================================== -->
 
 <div
     id="modal"
@@ -3805,8 +3805,8 @@ body {
             >
             </p>
 
-            <button id="nextOpenBtn" onclick="handleNextOpenStep()">
-                KOLEJNA SKRZYNKA
+            <button onclick="closeModal()">
+                ODBIERZ
             </button>
 
         </div>
@@ -3885,7 +3885,7 @@ body {
 
 <!-- =====================================================
      DROP MODAL
-========================================== -->
+===================================================== -->
 
 <div
     id="dropModal"
@@ -4611,7 +4611,7 @@ if (!Array.isArray(shopListings)) {
 
 
 /* ==========================================
-   ZMIENNE GRY I KOLEJKA MULTI-OPEN
+   ZMIENNE GRY
 ========================================== */
 
 let opening = false;
@@ -4619,10 +4619,7 @@ let currentFilter = "all";
 let upgradeIndex = null;
 let selectedBattleCase = null;
 let battleRunning = false;
-
 let currentMultiCaseType = null;
-let remainingQueueCount = 0;
-let queueWonItems = [];
 
 
 /* ==========================================
@@ -4696,7 +4693,6 @@ function openDailyCase() {
     document.getElementById("result").style.display = "none";
     document.getElementById("openingText").style.display = "block";
     document.getElementById("openingText").textContent = "🎰 Otwieranie darmowej skrzynki...";
-    document.getElementById("nextOpenBtn").style.display = "none";
 
     const winningDrop = getRandomDailyDrop();
 
@@ -4921,7 +4917,7 @@ function getRandomSkin(type) {
 
 
 /* ==========================================
-   OTWIERANIE SKRZYNKI (SEKWENCYJNA ANIMACJA)
+   OTWIERANIE SKRZYNKI (MULTI-OPEN SYSTEM)
 ========================================== */
 
 function promptOpenCase(type) {
@@ -4931,6 +4927,7 @@ function promptOpenCase(type) {
     currentMultiCaseType = type;
     document.getElementById("multiModalTitle").textContent = "Otwórz: " + data.name;
 
+    // Przelicz ceny dla przycisków 1, 2, 3, 4, 5, 10
     const counts = [1, 2, 3, 4, 5, 10];
     counts.forEach(c => {
         const totalCoins = data.price * c;
@@ -4962,29 +4959,42 @@ function confirmOpenCases(count) {
     save();
     updateUI();
 
-    // Inicjalizacja kolejki animacji
-    remainingQueueCount = count;
-    queueWonItems = [];
+    if (count === 1) {
+        // Pojedyncza skrzynka z klasyczną ruletką
+        openCaseSingle(type, data.price);
+    } else {
+        // Wiele skrzynek naraz - losowanie i pokazanie zbiorcze w Drop Modal
+        let wonItems = [];
+        for (let i = 0; i < count; i++) {
+            let winner = getRandomSkin(type);
+            wonItems.push(winner);
+            inventory.unshift({
+                name: winner.name,
+                icon: winner.icon,
+                rarity: winner.rarity,
+                chance: winner.chance,
+                value: winner.value,
+                gold: false,
+                goldValue: 0,
+                caseValue: data.price
+            });
+        }
+        save();
+        updateUI();
 
-    runNextQueueItem();
+        // Pokaż wygrane w modalu dropów jako podsumowanie
+        showMultiResultModal(data.name, wonItems);
+    }
 }
 
-function runNextQueueItem() {
-    if (remainingQueueCount <= 0) {
-        // Koniec kolejki – pokaż podsumowanie w formie okna dropów
-        showMultiResultModal(cases[currentMultiCaseType].name, queueWonItems);
-        return;
-    }
-
-    remainingQueueCount--;
+function openCaseSingle(type, casePrice) {
+    if (opening) return;
     opening = true;
 
-    const type = currentMultiCaseType;
     const data = cases[type];
-
     const modal = document.getElementById("modal");
     modal.style.display = "flex";
-    document.getElementById("modalTitle").textContent = data.name + " (Pozostało: " + (remainingQueueCount + 1) + ")";
+    document.getElementById("modalTitle").textContent = data.name;
     document.getElementById("result").style.display = "none";
     document.getElementById("openingText").style.display = "block";
     document.getElementById("openingText").textContent = "🎰 Losowanie...";
@@ -4994,55 +5004,12 @@ function runNextQueueItem() {
 
     setTimeout(() => {
         if (!opening) return;
-        
-        // Dodaj item do ekwipunku i do listy podsumowania kolejki
-        inventory.unshift({
-            name: winner.name,
-            icon: winner.icon,
-            rarity: winner.rarity,
-            chance: winner.chance,
-            value: winner.value,
-            gold: false,
-            goldValue: 0,
-            caseValue: data.price
-        });
-        queueWonItems.push(winner);
-        save();
-        updateUI();
-
-        showResultForQueue(winner, data.price);
+        showResult(winner, casePrice);
     }, 3500);
 }
 
-function showResultForQueue(item, casePrice) {
-    document.getElementById("resultIcon").textContent = item.icon;
-    document.getElementById("resultName").textContent = item.name;
-    const rarity = document.getElementById("resultRarity");
-    rarity.textContent = item.rarity.toUpperCase();
-    rarity.className = item.rarity;
-    document.getElementById("resultValue").textContent = "💵 Wartość: " + formatVPLN(item.value);
-
-    document.getElementById("result").style.display = "block";
-    document.getElementById("openingText").textContent = "✨ Gratulacje!";
-
-    const nextBtn = document.getElementById("nextOpenBtn");
-    if (remainingQueueCount > 0) {
-        nextBtn.textContent = "KOLEJNA SKRZYNKA (" + remainingQueueCount + " pozostało)";
-    } else {
-        nextBtn.textContent = "ZOBACZ PODSUMOWANIE";
-    }
-
-    opening = false;
-}
-
-function handleNextOpenStep() {
-    const modal = document.getElementById("modal");
-    modal.style.display = "none";
-    runNextQueueItem();
-}
-
 function showMultiResultModal(caseName, items) {
-    document.getElementById("dropTitle").textContent = "Podsumowanie otwarcia (" + items.length + "x " + caseName + ")";
+    document.getElementById("dropTitle").textContent = "Wynik otwarcia (" + items.length + "x " + caseName + ")";
     const list = document.getElementById("dropList");
     list.innerHTML = "";
 
@@ -5059,7 +5026,7 @@ function showMultiResultModal(caseName, items) {
     });
 
     document.getElementById("dropModal").style.display = "flex";
-    showToast("🎉 Otwarto pomyślnie " + items.length + " skrzynek z animacją!");
+    showToast("🎉 Otwarto pomyślnie " + items.length + " skrzynek!");
 }
 
 
@@ -5159,7 +5126,7 @@ function createRoulette(
 
 
 /* ==========================================
-   RESULT (DLA POJEDYNCZEGO KLIKNIĘCIA)
+   RESULT
 ========================================== */
 
 function showResult(
@@ -5229,8 +5196,6 @@ function showResult(
         "openingText"
     ).textContent =
         "✨ Gratulacje!";
-
-    document.getElementById("nextOpenBtn").style.display = "none";
 
     opening = false;
 
