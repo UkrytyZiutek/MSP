@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -13,7 +10,7 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>DropZone - Auth & Profile Update</title>
+<title>DropZone - Multi-Open Update</title>
 
 <style>
 
@@ -1493,13 +1490,14 @@ body {
 
 
 /* ==========================================
-   MODALS (PROFILE, CASE, UPGRADE, DROP)
+   MODALS (PROFILE, CASE, UPGRADE, DROP, MULTI-OPEN)
 ========================================== */
 
 .modal,
 .upgradeModal,
 .dropModal,
-.profileModal {
+.profileModal,
+.multiOpenModal {
     display: none;
 
     position: fixed;
@@ -1519,7 +1517,8 @@ body {
 .modalBox,
 .upgradeBox,
 .dropWindow,
-.profileBox {
+.profileBox,
+.multiOpenBox {
     width: min(850px,94%);
 
     background: #111725;
@@ -1537,8 +1536,10 @@ body {
     text-align: center;
 }
 
-.profileBox {
+.profileBox,
+.multiOpenBox {
     width: min(450px,92%);
+    text-align: center;
 }
 
 .dropWindow {
@@ -1568,6 +1569,38 @@ body {
     border-radius: 8px;
 
     cursor: pointer;
+}
+
+.multiOptions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.multiBtn {
+    background: #171e2e;
+    border: 1px solid #303b55;
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.multiBtn span {
+    font-size: 11px;
+    color: #ffd84d;
+}
+
+.multiBtn:hover {
+    background: #6744ff;
+    border-color: #965cff;
 }
 
 
@@ -2188,7 +2221,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('spooky')"
+                onclick="promptOpenCase('spooky')"
             >
                 OTWÓRZ
             </button>
@@ -2222,7 +2255,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('cursed_tomb')"
+                onclick="promptOpenCase('cursed_tomb')"
             >
                 OTWÓRZ
             </button>
@@ -2256,7 +2289,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('pumpkin_king')"
+                onclick="promptOpenCase('pumpkin_king')"
             >
                 OTWÓRZ
             </button>
@@ -2290,7 +2323,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('witch_craze')"
+                onclick="promptOpenCase('witch_craze')"
             >
                 OTWÓRZ
             </button>
@@ -2326,7 +2359,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('titan_legend')"
+                onclick="promptOpenCase('titan_legend')"
             >
                 OTWÓRZ
             </button>
@@ -2362,7 +2395,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('army')"
+                onclick="promptOpenCase('army')"
             >
                 OTWÓRZ
             </button>
@@ -2396,7 +2429,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('specops')"
+                onclick="promptOpenCase('specops')"
             >
                 OTWÓRZ
             </button>
@@ -2430,7 +2463,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('sniper')"
+                onclick="promptOpenCase('sniper')"
             >
                 OTWÓRZ
             </button>
@@ -2466,7 +2499,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('ocean')"
+                onclick="promptOpenCase('ocean')"
             >
                 OTWÓRZ
             </button>
@@ -2500,7 +2533,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('tornado')"
+                onclick="promptOpenCase('tornado')"
             >
                 OTWÓRZ
             </button>
@@ -2534,7 +2567,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('volcano')"
+                onclick="promptOpenCase('volcano')"
             >
                 OTWÓRZ
             </button>
@@ -2570,7 +2603,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('shadow_ninja')"
+                onclick="promptOpenCase('shadow_ninja')"
             >
                 OTWÓRZ
             </button>
@@ -2604,7 +2637,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('samurai')"
+                onclick="promptOpenCase('samurai')"
             >
                 OTWÓRZ
             </button>
@@ -2638,7 +2671,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('arcane')"
+                onclick="promptOpenCase('arcane')"
             >
                 OTWÓRZ
             </button>
@@ -2672,7 +2705,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('mythological')"
+                onclick="promptOpenCase('mythological')"
             >
                 OTWÓRZ
             </button>
@@ -2708,7 +2741,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('starter')"
+                onclick="promptOpenCase('starter')"
             >
                 OTWÓRZ
             </button>
@@ -2742,7 +2775,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('crystal')"
+                onclick="promptOpenCase('crystal')"
             >
                 OTWÓRZ
             </button>
@@ -2776,7 +2809,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('inferno')"
+                onclick="promptOpenCase('inferno')"
             >
                 OTWÓRZ
             </button>
@@ -2810,7 +2843,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('cyber')"
+                onclick="promptOpenCase('cyber')"
             >
                 OTWÓRZ
             </button>
@@ -2844,7 +2877,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('royal')"
+                onclick="promptOpenCase('royal')"
             >
                 OTWÓRZ
             </button>
@@ -2878,7 +2911,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('cosmic')"
+                onclick="promptOpenCase('cosmic')"
             >
                 OTWÓRZ
             </button>
@@ -2912,7 +2945,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('mythic')"
+                onclick="promptOpenCase('mythic')"
             >
                 OTWÓRZ
             </button>
@@ -2946,7 +2979,7 @@ body {
 
             <button
                 class="openBtn"
-                onclick="openCase('galactic')"
+                onclick="promptOpenCase('galactic')"
             >
                 OTWÓRZ
             </button>
@@ -3655,7 +3688,48 @@ body {
 
 
 <!-- =====================================================
-     CASE MODAL
+     MULTI-OPEN MODAL (WYBÓR ILOŚCI SKRZYNEK)
+===================================================== -->
+<div id="multiOpenModal" class="multiOpenModal">
+    <div class="multiOpenBox">
+        <div class="modalHeader">
+            <h2 id="multiModalTitle">Ile skrzynek otworzyć?</h2>
+            <button class="close" onclick="closeMultiModal()">✕</button>
+        </div>
+        <p style="color: #8490a8; font-size: 13px; margin: 10px 0;">Wybierz liczbę skrzynek do otwarcia:</p>
+        
+        <div class="multiOptions">
+            <button class="multiBtn" onclick="confirmOpenCases(1)">
+                <b>1 szt.</b>
+                <span id="price1">—</span>
+            </button>
+            <button class="multiBtn" onclick="confirmOpenCases(2)">
+                <b>2 szt.</b>
+                <span id="price2">—</span>
+            </button>
+            <button class="multiBtn" onclick="confirmOpenCases(3)">
+                <b>3 szt.</b>
+                <span id="price3">—</span>
+            </button>
+            <button class="multiBtn" onclick="confirmOpenCases(4)">
+                <b>4 szt.</b>
+                <span id="price4">—</span>
+            </button>
+            <button class="multiBtn" onclick="confirmOpenCases(5)">
+                <b>5 szt.</b>
+                <span id="price5">—</span>
+            </button>
+            <button class="multiBtn" onclick="confirmOpenCases(10)">
+                <b>10 szt.</b>
+                <span id="price10">—</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<!-- =====================================================
+     CASE MODAL (ROULETTE DLA 1 SZTUKI)
 ===================================================== -->
 
 <div
@@ -4102,7 +4176,7 @@ const dailyCaseDrops = [
 
 
 /* ==========================================
-   UNIKALNE SKINY DLA KAŻDEJ SKRZYNKI (JEDNA EMOTKA)
+   UNIKALNE SKINY DLA KAŻDEJ SKRZYNKI
 ========================================== */
 
 const caseSkins = {
@@ -4541,14 +4615,11 @@ if (!Array.isArray(shopListings)) {
 ========================================== */
 
 let opening = false;
-
 let currentFilter = "all";
-
 let upgradeIndex = null;
-
 let selectedBattleCase = null;
-
 let battleRunning = false;
+let currentMultiCaseType = null;
 
 
 /* ==========================================
@@ -4846,108 +4917,116 @@ function getRandomSkin(type) {
 
 
 /* ==========================================
-   OTWIERANIE SKRZYNKI
+   OTWIERANIE SKRZYNKI (MULTI-OPEN SYSTEM)
 ========================================== */
 
-function openCase(type) {
+function promptOpenCase(type) {
+    const data = cases[type];
+    if (!data) return;
 
-    if (opening) {
+    currentMultiCaseType = type;
+    document.getElementById("multiModalTitle").textContent = "Otwórz: " + data.name;
 
-        showToast(
-            "🎰 Poczekaj na zakończenie losowania."
-        );
+    // Przelicz ceny dla przycisków 1, 2, 3, 4, 5, 10
+    const counts = [1, 2, 3, 4, 5, 10];
+    counts.forEach(c => {
+        const totalCoins = data.price * c;
+        document.getElementById("price" + c).textContent = formatVPLN(totalCoins);
+    });
 
+    document.getElementById("multiOpenModal").style.display = "flex";
+}
+
+function closeMultiModal() {
+    document.getElementById("multiOpenModal").style.display = "none";
+    currentMultiCaseType = null;
+}
+
+function confirmOpenCases(count) {
+    if (!currentMultiCaseType) return;
+    const type = currentMultiCaseType;
+    const data = cases[type];
+    closeMultiModal();
+
+    const totalCost = data.price * count;
+
+    if (balance < totalCost) {
+        showToast("❌ Za mało VPLN na otwarcie " + count + " skrzynek.");
         return;
-
     }
 
-    const data =
-        cases[type];
-
-    if (!data) {
-
-        showToast(
-            "❌ Nie znaleziono tej skrzynki."
-        );
-
-        return;
-
-    }
-
-    if (
-        balance <
-        data.price
-    ) {
-
-        showToast(
-            "❌ Za mało VPLN."
-        );
-
-        return;
-
-    }
-
-    balance -=
-        data.price;
-
+    balance -= totalCost;
     save();
-
     updateUI();
 
+    if (count === 1) {
+        // Pojedyncza skrzynka z klasyczną ruletką
+        openCaseSingle(type, data.price);
+    } else {
+        // Wiele skrzynek naraz - losowanie i pokazanie zbiorcze w Drop Modal
+        let wonItems = [];
+        for (let i = 0; i < count; i++) {
+            let winner = getRandomSkin(type);
+            wonItems.push(winner);
+            inventory.unshift({
+                name: winner.name,
+                icon: winner.icon,
+                rarity: winner.rarity,
+                chance: winner.chance,
+                value: winner.value,
+                gold: false,
+                goldValue: 0,
+                caseValue: data.price
+            });
+        }
+        save();
+        updateUI();
+
+        // Pokaż wygrane w modalu dropów jako podsumowanie
+        showMultiResultModal(data.name, wonItems);
+    }
+}
+
+function openCaseSingle(type, casePrice) {
+    if (opening) return;
     opening = true;
 
-    const modal =
-        document.getElementById(
-            "modal"
-        );
+    const data = cases[type];
+    const modal = document.getElementById("modal");
+    modal.style.display = "flex";
+    document.getElementById("modalTitle").textContent = data.name;
+    document.getElementById("result").style.display = "none";
+    document.getElementById("openingText").style.display = "block";
+    document.getElementById("openingText").textContent = "🎰 Losowanie...";
 
-    modal.style.display =
-        "flex";
+    const winner = getRandomSkin(type);
+    createRoulette(type, winner);
 
-    document.getElementById(
-        "modalTitle"
-    ).textContent =
-        data.name;
+    setTimeout(() => {
+        if (!opening) return;
+        showResult(winner, casePrice);
+    }, 3500);
+}
 
-    document.getElementById(
-        "result"
-    ).style.display =
-        "none";
+function showMultiResultModal(caseName, items) {
+    document.getElementById("dropTitle").textContent = "Wynik otwarcia (" + items.length + "x " + caseName + ")";
+    const list = document.getElementById("dropList");
+    list.innerHTML = "";
 
-    document.getElementById(
-        "openingText"
-    ).style.display =
-        "block";
+    items.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "dropItem";
+        div.innerHTML = `
+            <div class="dropItemIcon">${item.icon}</div>
+            <div class="dropItemName ${item.rarity}">${item.name}</div>
+            <div class="dropChance">${item.rarity.toUpperCase()}</div>
+            <div class="dropValue">💵 ${formatVPLN(item.value)}</div>
+        `;
+        list.appendChild(div);
+    });
 
-    document.getElementById(
-        "openingText"
-    ).textContent =
-        "🎰 Losowanie...";
-
-    const winner =
-        getRandomSkin(type);
-
-    createRoulette(
-        type,
-        winner
-    );
-
-    setTimeout(
-        () => {
-
-            if (!opening) {
-                return;
-            }
-
-            showResult(
-                winner,
-                data.price
-            );
-
-        },
-        3500
-    );
-
+    document.getElementById("dropModal").style.display = "flex";
+    showToast("🎉 Otwarto pomyślnie " + items.length + " skrzynek!");
 }
 
 
@@ -7126,4 +7205,3 @@ updateGoldChanceUI();
 </body>
 
 </html>
-
