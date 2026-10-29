@@ -1,0 +1,261 @@
+.dropBtn {
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px;
+    border-radius: 9px;
+    border: 1px solid #39445e;
+    background: #171e2d;
+    color: #b9c2d5;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.dropBtn:hover {
+    background: #222c42;
+    color: white;
+}
+
+.dropModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    background: rgba(0,0,0,.82);
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(7px);
+}
+
+.dropWindow {
+    width: min(650px, 94%);
+    max-height: 85vh;
+    overflow-y: auto;
+    background: #111725;
+    border: 1px solid #394560;
+    border-radius: 20px;
+    padding: 25px;
+}
+
+.dropHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.dropHeader h2 {
+    margin: 0;
+}
+
+.dropClose {
+    border: 0;
+    background: #293348;
+    color: white;
+    padding: 9px 13px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.dropList {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.dropItem {
+    display: grid;
+    grid-template-columns: 55px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #171e2d;
+    border: 1px solid #2e3951;
+    border-radius: 12px;
+}
+
+.dropIcon {
+    font-size: 35px;
+    text-align: center;
+}
+
+.dropName {
+    font-weight: bold;
+}
+
+.dropRarity {
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.dropChance {
+    color: #ffd84d;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.chanceBar {
+    height: 5px;
+    margin-top: 7px;
+    background: #293246;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.chanceFill {
+    height: 100%;
+    background: linear-gradient(90deg,#6744ff,#a56cff);
+}
+
+/* ==========================================
+   DIAMENTY
+========================================== */
+
+.diamonds {
+    background: #102532;
+    border: 1px solid #28718c;
+    padding: 10px 16px;
+    border-radius: 12px;
+    color: #58dfff;
+    font-weight: bold;
+}
+
+
+/* ==========================================
+   ITEM ACTIONS
+========================================== */
+
+.itemActions {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 12px;
+}
+
+.upgradeBtn {
+    width: 100%;
+    padding: 9px;
+    border: 0;
+    border-radius: 9px;
+    background: linear-gradient(
+        90deg,
+        #d79b18,
+        #ffd84d
+    );
+    color: #15100a;
+    cursor: pointer;
+    font-weight: 900;
+}
+
+.upgradeBtn:hover {
+    filter: brightness(1.12);
+}
+
+.upgradeBtn:disabled {
+    background: #3b4150;
+    color: #888;
+    cursor: not-allowed;
+}
+
+
+/* ==========================================
+   GOLD ITEM
+========================================== */
+
+.item.gold {
+    border-color: #ffd84d;
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(255,216,77,.18),
+            transparent 60%
+        ),
+        #17150d;
+
+    box-shadow:
+        0 0 20px rgba(255,210,50,.12);
+}
+
+.goldName {
+    color: #ffd84d;
+    font-weight: 900;
+}
+
+.goldRarity {
+    color: #ffd84d !important;
+}
+
+.diamondValue {
+    margin-top: 7px;
+    color: #58dfff;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* ==========================================
+   UPGRADE MODAL
+========================================== */
+
+.upgradeModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.84);
+    z-index: 150;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+}
+
+.upgradeBox {
+    width: min(500px, 92%);
+    background: #111725;
+    border: 1px solid #675a32;
+    border-radius: 20px;
+    padding: 28px;
+    text-align: center;
+    box-shadow:
+        0 20px 70px rgba(0,0,0,.5);
+}
+
+.upgradeIcon {
+    font-size: 80px;
+    margin: 10px;
+}
+
+.upgradeChance {
+    color: #65eea0;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.upgradeButton {
+    width: 100%;
+    padding: 13px;
+    border: 0;
+    border-radius: 10px;
+    background: linear-gradient(
+        90deg,
+        #d79b18,
+        #ffd84d
+    );
+    color: #17120a;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.upgradeButton:hover {
+    filter: brightness(1.12);
+}
+
+.cancelUpgrade {
+    width: 100%;
+    margin-top: 8px;
+    padding: 11px;
+    border: 0;
+    border-radius: 10px;
+    background: #293348;
+    color: white;
+    cursor: pointer;
+}
